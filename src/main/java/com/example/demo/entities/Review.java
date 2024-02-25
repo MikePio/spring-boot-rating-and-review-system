@@ -100,4 +100,11 @@ public class Review {
   public void setProduct(Product product) {
     this.product = product;
   }
+
+  @Override
+  public String toString() {
+    return "Review [id=" + id + ", content=" + content + ", datePost=" + datePost + ", rating=" + rating + ", account="
+        + account + ", product=" + product + "]";
+  }
+
 }

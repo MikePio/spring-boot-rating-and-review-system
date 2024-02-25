@@ -46,23 +46,72 @@ public class DemoApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 
 		// inserisci gli oggetti/ i dati di prova da inserire nel db
-		// Account account = new Account();
-		// account.setUsername("johndoe");
-		// account.setPassword("password");
+		Account account = new Account();
+		account.setUsername("johndoe");
+		account.setPassword("password");
 
-		// Product product = new Product();
-		// product.setName("The Lord of the Rings");
+		Product product = new Product();
+		product.setName("The Lord of the Rings");
+		product.setPrice(10.5);
+		product.setImage("https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg");
 
-		// Review review = new Review();
-		// review.setContent("The book was amazing! I really enjoyed it.");
-		// review.setDatePost(new Date());
-		// review.setRating(5.0f);
-		// review.setAccount(account);
-		// review.setProduct(product);
+		Review review = new Review();
+		review.setContent("The book was amazing! I really enjoyed it.");
+		review.setDatePost(new Date());
+		review.setRating(5.0f);
+		review.setAccount(account);
+		review.setProduct(product);
 
-		// // Salva la recensione nel database
-		// reviewRepo.save(review);
-		
+		// Salva l'account nel database
+		accountService.save(account);
+		System.out.println("!!account!! " + account);
+		// Salva il product nel database
+		productService.save(product);
+		System.out.println("!!product!! " + product);
+		// Salva la recensione nel database
+		reviewService.save(review);
+		System.out.println("!!review!! " + review);
+
+		// Altri 3 nuovi oggetti
+		Account account2 = new Account();
+		account2.setUsername("Mario125");
+		account2.setPassword("securepassword");
+
+		Product product2 = new Product();
+		product2.setName("Harry Potter and the Philosopher's Stone");
+		product2.setPrice(12.99);
+		product2.setImage("https://m.media-amazon.com/images/I/51UoqRAxwEL._SY346_.jpg");
+
+		Review review2 = new Review();
+		review2.setContent("This book is a classic! I couldn't put it down.");
+		review2.setDatePost(new Date());
+		review2.setRating(4.5f);
+		review2.setAccount(account2);
+		review2.setProduct(product2);
+
+		// Salva l'account nel database
+		accountService.save(account2);
+		System.out.println("!!account!! " + account2);
+		// Salva il product nel database
+		productService.save(product2);
+		System.out.println("!!product!! " + product2);
+		// Salva la recensione nel database
+		reviewService.save(review2);
+		System.out.println("!!review!! " + review2);
+
+
+		// Altra nuova review
+		Review review3 = new Review();
+		review3.setContent("I liked it!");
+		review3.setDatePost(new Date());
+		review3.setRating(4f);
+		review3.setAccount(account);
+		review3.setProduct(product2);
+
+		// Salva la recensione nel database
+		reviewService.save(review3);
+		System.out.println("!!review!! " + review3);
+
 	}
 
 }
