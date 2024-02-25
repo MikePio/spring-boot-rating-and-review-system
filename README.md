@@ -37,6 +37,14 @@ Creare i services e le repositories per ogni entity
 
 Controllare se le tabelle sono state create nel db (NON IMPORTA SE COMPARE L'ERRORE "Whitelabel Error Page" SUL BROWSER NEL LOCALHOST/SITO http://localhost:8080/ è tutto normale perché non è stato configurato un controller e una vista)
 
+### STEP 3
+
+Salvare dei dati fittizi nel db per verificarne il funzionamento delle tabelle e delle relazioni
+
+- Aggiungere il metodo save nel service
+
+- Aggiungere i dati fittizi nel file Application e richiamati i metodi save del service per salvare i dati nel db
+
 
 
 Recap video:
@@ -46,8 +54,8 @@ Recap video:
 ##### 5:46 creazione dei repository
 ##### 6:09 compilazione della repo Product
 ##### 8:00 creazione dei services
-##### 
-##### 
+##### 12:34 creazione dei controller
+##### 14:46 creazione della view
 ##### 
 ##### 
 ##### 
