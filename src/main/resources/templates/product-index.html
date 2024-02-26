@@ -1,0 +1,52 @@
+<!--/* head */-->
+<th:block th:replace="~{/frags/head :: head}"></th:block>
+
+	<body class="d-flex flex-column justify-content-between">
+
+		<!--/* header */-->
+		<th:block th:replace="~{/frags/header :: header}"></th:block>
+
+		<main class="py-5 d-flex flex-column justify-content-center align-items-center">
+	
+			<h1 class="mb-5">Products List</h1>
+
+			<!-- <div th:each="product : ${products}" th:object="${product}" class="p-2 border-bottom">
+				<h6 class="m-0">[[*{name}]]</h6>
+			</div> -->
+
+			<h2 th:if="${products.size() == 0}">
+				No product found...
+			</h2>
+
+			<table th:if="${products.size() > 0}" class="table table-dark w-75">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Image</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${products}" th:object="${product}">
+						<th>[[*{id}]]</th>
+						<td>[[*{name}]]</td>
+						<td>€ [[*{formattedPrice}]]</td>
+						<td>
+							<img th:if="${#strings.startsWith(product.image, 'https://') or #strings.startsWith(product.image, 'http://')}" alt="" th:src="${product.image}" th:alt="${product.image}"
+												class="img-item-index-page rounded-circle me-3 " />
+											<img th:if="${not #strings.startsWith(product.image, 'https://') and not #strings.startsWith(product.image, 'http://')}" alt="" th:src="@{/img/__${product.image}__}" th:alt="${product.image}"
+												class="img-item-index-page rounded-circle me-3 " />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</main>
+		
+		<!--/* footer */-->
+		<th:block th:replace="~{/frags/footer :: footer}"></th:block>
+
+	</body>
+
+</html>
+

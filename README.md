@@ -45,6 +45,22 @@ Salvare dei dati fittizi nel db per verificarne il funzionamento delle tabelle e
 
 - Aggiungere i dati fittizi nel file Application e richiamati i metodi save del service per salvare i dati nel db
 
+### STEP 4
+
+Creare i controller e le view che mostrano gli oggetti(es. prodotti) 
+
+- importare la dipendenza thymeleaf in pom.xml
+
+- creare il/i controller
+
+- creare una view (file html che mostra i dati degli oggetti)
+
+- richiamare i metodi del service (che provengono dalla repo ma modificati con una logica) per gestire i dati nel controller ed infine restituire la view con una rotta
+
+- stampare nella view l'oggetto utilizzando thymeleaf
+
+- aggiunta barra di ricerca per cercare gli oggetti(i prodotti in questo caso) in base al name
+
 
 
 Recap video:

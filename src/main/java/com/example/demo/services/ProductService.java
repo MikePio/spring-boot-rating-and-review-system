@@ -16,6 +16,43 @@ public class ProductService {
   
   @Autowired
   private ProductRepo productRepo;
+  
+  public List<Product> findAll(){
+    return productRepo.findAll();
+  }
+  // altro modo (nel video) ma restituisce solo un'interfaccia Iterable, non una List e potrebbe richiedere conversioni se si necessita di una List in particolare ed è più coerente con l'interfaccia CrudRepository
+  // @Override
+  // public Iterable<Product> findAll(){
+  //   return productRepo.findAll();
+  // }
+
+  
+  public List<Product> findByName(String str){
+
+		// * trova il nome del prodotto con le lettere che sono incluse nel nome della pizza (parola cercata: "vola" trovata la pizza "diavola")
+    return productRepo.findByNameContainingIgnoreCase(str);
+    //* oppure si può inserire direttamente qui la logica della funzione che, in questo caso, è stata già inserita nel controller
+		// if (str == null || str.isEmpty()) {
+		// 		return productRepo.findAll();
+		// } else {
+		// 		return productRepo.findByNameContaining(str);
+		// }
+  }
+
+
+  // Restituisce: Un oggetto Product se trovato, altrimenti lancia un'eccezione NoSuchElementException
+	// public Product findById(int id) {
+	// 	return productRepo.findById(id).get();
+	// }
+	// Restituisce: Un oggetto Optional<Product> contenente l'oggetto Product se trovato, altrimenti un Optional vuoto
+	public Optional<Product> findById(int id) {
+		return productRepo.findById(id);
+	}
+  // altro modo (nel video) 
+  // @Override
+  // public Product find(int id){
+  //   return productRepo.findOne(id);
+  // }
 
   // public void save(Product product) {
 	// 	productRepo.save(product);

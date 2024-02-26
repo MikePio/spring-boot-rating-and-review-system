@@ -61,6 +61,10 @@ public class Product {
     return price;
   }
 
+  public String getFormattedPrice() {
+		return String.format("%.2f", price);
+	}
+
   public void setPrice(double price) {
     this.price = price;
   }
