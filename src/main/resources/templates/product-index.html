@@ -28,14 +28,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="product : ${products}" th:object="${product}">
+					<tr th:each="product : ${products}" th:object="${product}" th:data-href="@{/products/{id}(id=*{id})}" class="def-link clickable-row">
 						<th>[[*{id}]]</th>
 						<td>[[*{name}]]</td>
 						<td>€ [[*{formattedPrice}]]</td>
 						<td>
 							<img th:if="${#strings.startsWith(product.image, 'https://') or #strings.startsWith(product.image, 'http://')}" alt="" th:src="${product.image}" th:alt="${product.image}"
 												class="img-item-index-page rounded-circle me-3 " />
-											<img th:if="${not #strings.startsWith(product.image, 'https://') and not #strings.startsWith(product.image, 'http://')}" alt="" th:src="@{/img/__${product.image}__}" th:alt="${product.image}"
+							<img th:if="${not #strings.startsWith(product.image, 'https://') and not #strings.startsWith(product.image, 'http://')}" alt="" th:src="@{/img/__${product.image}__}" th:alt="${product.image}"
 												class="img-item-index-page rounded-circle me-3 " />
 						</td>
 					</tr>

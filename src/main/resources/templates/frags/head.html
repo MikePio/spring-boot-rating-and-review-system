@@ -16,4 +16,24 @@
 <!--/* ! DA ELIMINARE -> fontawesome cdn (utilizzata solo per avere i suggerimenti)*/-->
 <!--/* <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' integrity='sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==' crossorigin='anonymous'/> */-->
 <title>Rating And Review System</title>
+<script>
+  // Attendi il caricamento completo del documento HTML prima di eseguire il codice JavaScript
+  document.addEventListener("DOMContentLoaded", function() {
+    // Seleziona tutti gli elementi con la classe "clickable-row"
+    var rows = document.querySelectorAll(".clickable-row");
+    // Itera su tutti gli elementi selezionati
+    rows.forEach(function(row) {
+      // Aggiungi un event listener per il clic su ciascun elemento
+      row.addEventListener("click", function() {
+        // Ottieni l'URL specificato dall'attributo "data-href" dell'elemento
+        var href = this.getAttribute("data-href");
+        // Se l'URL è definito
+        if (href) {
+          // Naviga verso l'URL utilizzando window.location
+          window.location = href;
+        }
+      });
+    });
+  });
+</script>
 </head>

@@ -61,37 +61,66 @@ Creare i controller e le view che mostrano gli oggetti(es. prodotti)
 
 - aggiunta barra di ricerca per cercare gli oggetti(i prodotti in questo caso) in base al name
 
+### STEP 5
+
+Creazione della pagina di dettaglio
+
+- creazione del metodo "detail" nel controller
+
+- creazione della view/pagina di dettaglio per il product (inserito uno script per rendere le righe delle colonne cliccabili)
+
+### STEP 6
+
+Creazione sistema di login e di registrazione
+
+1) Login
 
 
-Recap video:
+
+2) Registrazione
+
+
+### STEP 7
+
+Aggiungere la funzionalità di creazione delle recensioni nella pagina di dettaglio quando l'utente è loggato
+
+
+
+> **!!! ATTENZIONE !!!**
+>
+> **In basso ci sono tutti i passaggi del video ma nello svolgimento del mio progetto sono stati effettuati dei passaggi differenti ed implementate alcune soluzioni differenti da quelle presenti nel video.**
+>
+> **!!!**
+
+
+### Recap video:
 
 ##### 4:06 Inizio esercizio concreto - creazione delle entities/dei model
 ##### 5:07-5:24 mostra le tabelle del db (è possibile vedere le chiavi secondarie (/ colonne delle many-to-many o one-to-many) che si trovano all'interno delle tabelle in modo da capire le relazioni tra le tabelle cioè many-to-many o one-to-many)
 ##### 5:46 creazione dei repository
 ##### 6:09 compilazione della repo Product
 ##### 8:00 creazione dei services
-##### 12:34 creazione dei controller
-##### 14:46 creazione della view
-##### 
-##### 
-##### 
-##### 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##### 12:34 creazione del controller Product
+##### 14:46 creazione file della view (usando jsp)
+##### 14:59 stampa degli oggetti nella view (pagina index)
+##### 18:57 creazione del metodo "detail" nel controller
+##### 19:35 creazione e compilazione della view/pagina di dettaglio per il product
+##### 22:22 inserimento di css
+##### 23:57 creazione sistema login e registrazione
+##### 25:12 creazione del controller per l'account con il metodo GET di login
+##### 26:17 creazione del form per il login
+##### 29:49 fixato bug per mostrare i link di login e di registrazione
+##### 30:46 creazione del metodo GET di registrazione nel controller dell'account
+##### 31:47 creazione del form per la registrazione
+##### 33:53 creazione del metodo POST di registrazione nel controller dell'account
+##### 35:33 aggiunto il metodo findByUsernameAndPassword nella repo dell'account e metodo di login nel service
+##### 36:28  creazione del metodo POST di login nel controller dell'account
+##### 41:15 creazione del form nella pagina di dettaglio per far inserire la recensione del prodotto all'utente che ha fatto il login
+##### 46:33 creazione del metodo POST nel controller del prodotto per inviare/creare la review/recensione al db
+##### 48:55 aggiunto il metodo FindByUsername nella repo dell'account e successivamente al service dell'account 
+##### 50:23 continuazione del metodo POST nel controller del prodotto per inviare/creare la review/recensione al db
+##### 50:35 creazione del service e della repo per le review/recensioni (aggiunti i metodi save)
+##### 52:38 completato il metodo POST nel controller del prodotto per inviare/creare la review/recensione al db
+##### 54:38-56:08 mostra in pagina le recensioni inserite cioè quelle presenti nel db  
+##### 56:35 mostra in pagina le stelle per le recensioni inserite cioè quelle presenti nel db  
+##### FINE😊

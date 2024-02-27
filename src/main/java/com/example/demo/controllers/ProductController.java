@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entities.Product;
 import com.example.demo.services.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -35,6 +36,17 @@ public class ProductController {
     
     return "product-index";
   }
+
+  @GetMapping("/{id}")
+  public String getShow(@PathVariable int id, Model model){
+
+    Product product = productService.findById(id).get();
+    model.addAttribute("product", product);
+
+    return "product-show";
+  }
+
+  
 
 
 
