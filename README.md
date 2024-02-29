@@ -71,14 +71,133 @@ Creazione della pagina di dettaglio
 
 ### STEP 6
 
-Creazione sistema di login e di registrazione
+Creazione sistema di login e di registrazione con password criptata
 
-1) Login
+1) Registrazione
 
+- il link per il form di registrazione e creata la view con il form di registrazione
 
+- aggiunta la dipendenza per crittografare la password:
 
-2) Registrazione
+```html
+  <!-- per installare PasswordEncoder -->
+  <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-crypto</artifactId>
+    <version>5.7.7</version>
+  </dependency>
+```
 
+- eseguiti i comandi Maven: `clean` e `install`
+
+- creata una cartella/directory chiamata `config` dove all'interno ho creato un file/la classe `SecurityConfig` in cui con il metodo passwordEncoder faccio ritornare `new BCryptPasswordEncoder()`. 
+
+```java
+@Configuration
+public class SecurityConfig {
+  
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+  
+}
+```
+
+- creato metodo save nell'AccountService dove all'interno viene utilizzato il metodo `encode` appartenente a PasswordEncoder
+
+```java
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
+	public Account save(Account account) {
+		// Codifica la password prima di salvarla nel database
+		String encodedPassword = passwordEncoder.encode(account.getPassword());
+
+		account.setPassword(encodedPassword);
+		
+		return accountRepo.save(account);
+	}
+```
+
+- in AccountController, richiamare con @Autowired PasswordEncoder e creare 2 metodi:
+
+  1. il metodo GET per la pagina di registrazione con un oggetto/account vuoto 
+
+  2. il metodo POST per inviare il form e creare l'oggetto nel db
+
+#### Metodo 1
+```java
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
+  @GetMapping("/registration") //! http://localhost:8080/account/registration
+  public String registration(Model model){
+    // Aggiungi un account vuoto al modello per il form di registrazione
+    model.addAttribute("account", new Account());
+    return "account-registration";
+  }
+```
+#### Metodo 2
+
+```java
+  @PostMapping("/registration") //! http://localhost:8080/account/registration
+  public String registration(@ModelAttribute Account account, @RequestParam(required = true) String username, String password, @RequestParam(required = true) String fullName) {
+    
+    accountService.save(account);
+
+    return "redirect:/products";
+  
+  }
+```
+
+2) Login
+
+- il link per il form di login e creata la view con il form di login
+
+- aggiunto il metodo `findByUsername` nell'AccountRepo
+
+- richiamato `findByUsername` nel AccountService
+
+- in AccountController, richiamare con @Autowired PasswordEncoder e creare 2 metodi:
+
+  1. il metodo GET per la pagina di login con un oggetto/account vuoto 
+
+  2. il metodo POST per inviare il form e verificare che esista un oggetto nel db con lo stesso username e la stessa password (altrimenti ritorna nella pagina di login)
+
+#### Metodo 1
+
+```java
+  @GetMapping("/login") //! http://localhost:8080/account/login
+  public String login(Model model){
+    
+    // Aggiungi un account vuoto al modello per il form di login
+    model.addAttribute("account", new Account());
+    
+    return "account-login";
+  }
+```
+
+#### Metodo 2
+
+```java
+  @PostMapping("/login") //! http://localhost:8080/account/login
+  public String login(@ModelAttribute("account") Account account) {
+
+    // Cerca l'account nel database utilizzando il nome utente
+    Account existingAccount = accountService.findByUsername(account.getUsername());
+
+    // Controlla se l'account esiste e se la password inserita corrisponde a quella memorizzata nel database
+    // ! VISTO CHE LA PASSWORD è CRIPTATA SI UTILIZZA matches` PER VERIFICARE SE è UGUALE O MENO (E NON equals)
+    if (existingAccount != null && passwordEncoder.matches(account.getPassword(), existingAccount.getPassword())) {
+      // Login riuscito
+      return "redirect:/products";
+    } else {
+      // Login fallito, reindirizza al form di login con un messaggio di errore
+      return "redirect:/account/login?error";
+    }
+  }
+```
 
 ### STEP 7
 

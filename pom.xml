@@ -70,6 +70,24 @@
 			<version>6.4.0</version>
 		</dependency>
 
+		<!-- * Spring boot security - AUTHENTICATION - SENZA LAYOUT DI LOGIN INTEGRATO -->	
+		<!-- per installare PasswordEncoder -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>5.7.7</version>
+		</dependency>
+
+		<!-- Spring boot security - AUTHENTICATION - con il login integrato -->	
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency> -->
+
 	</dependencies>
 
 	<build>

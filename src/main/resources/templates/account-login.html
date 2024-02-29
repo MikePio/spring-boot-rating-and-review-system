@@ -1,0 +1,31 @@
+<!--/* head */-->
+<th:block th:replace="~{/frags/head :: head}"></th:block>
+
+	<body class="d-flex flex-column justify-content-between">
+
+		<!--/* header */-->
+		<th:block th:replace="~{/frags/header :: header}"></th:block>
+
+		<main class="py-5 d-flex flex-column justify-content-center align-items-center">
+	
+			<form th:action="@{/account/login}" method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    
+		</main>
+		
+		<!--/* footer */-->
+		<th:block th:replace="~{/frags/footer :: footer}"></th:block>
+
+	</body>
+
+</html>
+

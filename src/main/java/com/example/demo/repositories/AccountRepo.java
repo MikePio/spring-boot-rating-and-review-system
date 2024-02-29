@@ -8,4 +8,6 @@ import com.example.demo.entities.Account;
 @Repository
 public interface AccountRepo extends JpaRepository<Account, Integer>{ // Integer è utilizzato come tipo del campo identificatore (id) della classe Account
   
+  Account findByUsername(String username);
+  
 }

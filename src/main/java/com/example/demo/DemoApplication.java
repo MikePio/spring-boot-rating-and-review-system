@@ -112,6 +112,15 @@ public class DemoApplication implements CommandLineRunner{
 		reviewService.save(review3);
 		System.out.println("!!review!! " + review3);
 
+		// nuovo utente
+		Account account3 = new Account();
+		account3.setUsername("asd");
+		account3.setPassword("123");
+		
+		accountService.save(account3);
+		System.out.println("!!account!! " + account3);
+
+
 	}
 
 }
