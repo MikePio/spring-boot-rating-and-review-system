@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entities.Account;
 import com.example.demo.services.AccountService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("account") //! http://localhost:8080/account
@@ -61,11 +65,31 @@ public class AccountController {
   }
 
   @PostMapping("/registration") //! http://localhost:8080/account/registration
-  public String registration(@ModelAttribute Account account, @RequestParam(required = true) String username, String password, @RequestParam(required = true) String fullName) {
+  public String registration(@ModelAttribute Account account, BindingResult bindingResult, Model model) {
     
-    accountService.save(account);
+    // Validazione di ogni campo
+    if (account.getFullName() == null || account.getFullName().length() < 2) {
+      bindingResult.addError(new FieldError("fullName", "fullName", "Full name is required and must be at least 2 characters long."));
+    }
+    if (account.getUsername().contains(" ")) {
+      bindingResult.addError(new FieldError("username", "username", "Username cannot contain spaces."));
+    }
+    if (accountService.findByUsername(account.getUsername()) != null) {
+      bindingResult.addError(new FieldError("username", "username", "Username already exists. Please choose a unique username."));
+    }
+    if (account.getUsername() == null || account.getUsername().isEmpty()) {
+      bindingResult.addError(new FieldError("username", "username", "Username is required."));
+    }
 
-    return "redirect:/products";
+    // salva se non ci sono errori
+    if (!bindingResult.hasErrors()) {
+      accountService.save(account);
+      return "redirect:/products"; 
+    }
+
+    // se ci sono errori, aggiungi gli errori al modello per la visualizzazione nella vista
+    model.addAttribute("errors", bindingResult.getAllErrors());
+    return "account-registration"; // Visualizza nuovamente il form di registrazione
   
   }
 

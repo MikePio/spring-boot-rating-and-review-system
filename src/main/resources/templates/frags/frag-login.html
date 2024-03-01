@@ -2,7 +2,7 @@
 <div th:fragment="frag-login" class="d-flex justify-content-end align-items-center w-100 p-2 px-3 pb-0 border-top border-top-1 border-dark-subtle">
   <h6 th:if="${session.username != null}">
     <span class="text-white">Hi </span>
-    <span class="" th:text="${session.username}">User</span><span class="text-white">! - </span>
+    <span class="" th:text="${session.username}"></span><span class="text-white">! - </span>
     <a href="/account/logout" class="link-light link-offset-2 link-underline-opacity-75 link-underline-opacity-100-hover">Logout</a>
   </h6>
   <h6 th:if="${session.username == null}" class="me-3">

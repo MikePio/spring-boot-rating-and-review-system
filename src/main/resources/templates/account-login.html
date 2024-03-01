@@ -8,6 +8,11 @@
 
 		<main class="py-5 d-flex flex-column justify-content-center align-items-center">
 	
+      <!--* Mostra il messaggio di errore se presente il parametro error nell'url: http://localhost:8080/account/login?error -->
+      <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        Invalid credentials. Please try again.
+      </div>
+
 			<form th:action="@{/account/login}" method="post">
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
