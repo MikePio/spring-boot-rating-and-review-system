@@ -8,10 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entities.Account;
 import com.example.demo.services.AccountService;
@@ -30,10 +28,10 @@ public class AccountController {
 
   @GetMapping("/login") //! http://localhost:8080/account/login
   public String login(Model model){
-    
+
     // Aggiungi un account vuoto al modello per il form di login
     model.addAttribute("account", new Account());
-    
+
     return "account-login";
   }
 
@@ -45,7 +43,7 @@ public class AccountController {
   }
 
   @PostMapping("/login") //! http://localhost:8080/account/login
-  public String login(@ModelAttribute("account") Account account) {
+  public String login(@ModelAttribute("account") Account account, HttpSession session) {
   // STESSA COSA DI:
   // public String login(@RequestParam String username, @RequestParam String password) {
 
@@ -56,6 +54,8 @@ public class AccountController {
     // ! SICCOME LA PASSWORD è CRIPTATA SI UTILIZZA matches PER VERIFICARE SE è UGUALE O MENO (E NON equals)
     if (existingAccount != null && passwordEncoder.matches(account.getPassword(), existingAccount.getPassword())) {
       // Login riuscito
+      // aggiungo l'attributo username alla sessione
+      session.setAttribute("username", account.getUsername());
       return "redirect:/products";
     } else {
       // Login fallito, reindirizza al form di login con un messaggio di errore
@@ -65,24 +65,26 @@ public class AccountController {
   }
 
   @PostMapping("/registration") //! http://localhost:8080/account/registration
-  public String registration(@ModelAttribute Account account, BindingResult bindingResult, Model model) {
-    
+  public String registration(@ModelAttribute Account account, BindingResult bindingResult, Model model, HttpSession session) {
     // Validazione di ogni campo
     if (account.getFullName() == null || account.getFullName().length() < 2) {
-      bindingResult.addError(new FieldError("fullName", "fullName", "Full name is required and must be at least 2 characters long."));
+      // Aggiunge un errore al risultato di binding indicando che il campo "fullName" di "account" ha un dato inserito errato
+      bindingResult.addError(new FieldError("account", "fullName", "Full name is required and must be at least 2 characters long."));
     }
     if (account.getUsername().contains(" ")) {
-      bindingResult.addError(new FieldError("username", "username", "Username cannot contain spaces."));
+      bindingResult.addError(new FieldError("account", "username", "Username cannot contain spaces."));
     }
     if (accountService.findByUsername(account.getUsername()) != null) {
-      bindingResult.addError(new FieldError("username", "username", "Username already exists. Please choose a unique username."));
+      bindingResult.addError(new FieldError("account", "username", "Username already exists. Please choose a unique username."));
     }
     if (account.getUsername() == null || account.getUsername().isEmpty()) {
-      bindingResult.addError(new FieldError("username", "username", "Username is required."));
+      bindingResult.addError(new FieldError("account", "username", "Username is required."));
     }
 
     // salva se non ci sono errori
     if (!bindingResult.hasErrors()) {
+      // aggiungo l'attributo username alla sessione
+      session.setAttribute("username", account.getUsername());
       accountService.save(account);
       return "redirect:/products"; 
     }
@@ -92,6 +94,12 @@ public class AccountController {
     return "account-registration"; // Visualizza nuovamente il form di registrazione
   
   }
-
+  
+  // andando sull'url "http://localhost:8080/account/logout" (cioè cliccando sul link logout) viene rimosso l'attributo username dalla sessione
+  @GetMapping("/logout")
+  public String logout(HttpSession session) {
+    session.removeAttribute("username");
+    return "redirect:/products"; 
+  }
 
 }
