@@ -126,7 +126,7 @@ public class SecurityConfig {
 
   2. il metodo POST per inviare il form e creare l'oggetto nel db
 
-#### Metodo 1
+#### Metodo GET
 ```java
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -138,7 +138,7 @@ public class SecurityConfig {
     return "account-registration";
   }
 ```
-#### Metodo 2
+#### Metodo POST
 
 ```java
   @PostMapping("/registration") //! http://localhost:8080/account/registration
@@ -165,7 +165,7 @@ public class SecurityConfig {
 
   2. il metodo POST per inviare il form e verificare che esista un oggetto nel db con lo stesso username e la stessa password (altrimenti ritorna nella pagina di login)
 
-#### Metodo 1
+#### Metodo GET
 
 ```java
   @GetMapping("/login") //! http://localhost:8080/account/login
@@ -178,7 +178,7 @@ public class SecurityConfig {
   }
 ```
 
-#### Metodo 2
+#### Metodo POST
 
 ```java
   @PostMapping("/login") //! http://localhost:8080/account/login
@@ -199,9 +199,49 @@ public class SecurityConfig {
   }
 ```
 
+- Aggiungere la validazione dei form
+
+  - aggiunta validazione dei form di login (utilizzando un parametro di errore) e di registrazione (effettuando i controlli nel controller)
+
+  - dopo aver commesso un errore nel form i dati degli input non vengono cancellati fino a quando sono corretti
+
+- Utilizzare le sessioni per gestire registrazione, login e logout
+
+  - Utilizzare le sessioni nell'AccountController per mantenere l'utente loggato dopo aver eseguito l'accesso o viceversa quando l'utente fa logout
+
+Ciò avviene aggiungendo un attributo alla sessione quando la registrazione ed il login riescono:
+
+```java
+  @PostMapping("/registration") //! http://localhost:8080/account/registration
+  public String registration(@ModelAttribute Account account, BindingResult bindingResult, Model model, HttpSession session) {
+
+    // salva se non ci sono errori
+    if (!bindingResult.hasErrors()) {
+      // aggiungo l'attributo username alla sessione
+      session.setAttribute("username", account.getUsername());
+      accountService.save(account);
+      return "redirect:/products"; 
+    }
+
+  }
+```
+
+Mentre, viene rimosso un attributo alla sessione quando il logout è riuscito
+
+```java
+  // andando sull'url "http://localhost:8080/account/logout" (cioè cliccando sul link logout) viene rimosso l'attributo username dalla sessione
+  @GetMapping("/logout")
+  public String logout(HttpSession session) {
+    session.removeAttribute("username");
+    return "redirect:/products"; 
+  }
+```
+
 ### STEP 7
 
 Aggiungere la funzionalità di creazione delle recensioni nella pagina di dettaglio quando l'utente è loggato
+
+
 
 
 
