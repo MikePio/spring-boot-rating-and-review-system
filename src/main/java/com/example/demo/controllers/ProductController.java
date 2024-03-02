@@ -60,10 +60,6 @@ public class ProductController {
     model.addAttribute("product", product);
     model.addAttribute("reviews", reviews);
 
-    // System.out.println("getShow di ProductController");
-    // System.out.println("product: " + product + " " + "reviews: " + reviews);
-    // System.out.println("Fine getShow di ProductController");
-
     return "product-show";
   }
 

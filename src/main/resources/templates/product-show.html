@@ -23,18 +23,22 @@
 			<!-- <h4><span>Price:</span> € [[${product.formattedPrice}]]</h4> -->
 		</div>
 
-		<div class="mx-4">
-			<h2>Reviews:</h2>
-			<div th:each="review : ${reviews}" th:object="${review}">
+		<div class="mx-auto w-75">
+			<h2><span>Reviews:</span></h2>
 
-				<div class="d-flex">
-					<h5 class="me-5"><span>User</span></h5>
-					<p class="date-review">[[*{getFormattedDatePost}]]</p> 
+			<h3 th:if="${reviews.size() == 0}">
+				No reviews yet
+			</h3>
+
+			<div th:if="${reviews.size() != 0}" th:each="review : ${reviews}" th:object="${review}">
+				<div class="d-flex align-items-end justify-content-between mb-2">
+					<h5 class="me-5 p-0 mb-0"><span>User</span></h5>
+					<div class="date-review p-0">[[*{getFormattedDatePost}]]</div> 
 				</div>
+				<p class="me-5 mb-1 fs-6"><span>[[*{rating}]]⭐</span></p>
 				<!-- oppure -->
 				<!--/* <p>[[*{formattedDatePost}]]</p> */-->
-				<p class="me-2">[[*{content}]] <span>[[*{rating}]]</span>⭐</p>
-
+				<p class="me-2">[[*{content}]]</p>
 			</div>
 		</div>
 
