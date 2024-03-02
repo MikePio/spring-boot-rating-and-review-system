@@ -6,22 +6,39 @@
 	<!-- header -->
 	<th:block th:replace="~{/frags/header :: header}"></th:block>
 
-	<main class="py-5 d-flex flex-column justify-content-center align-items-center text-center mx-2">
-		<div class="d-flex align-items-center">
-			<h2 class="mb-2 me-2">[[*{name}]]</h2> 
+	<main>
+		<div class="py-5 d-flex flex-column justify-content-center align-items-center text-center mx-2">
+			<div class="d-flex align-items-center">
+				<h2 class="mb-2 me-2">[[*{name}]]</h2> 
+			</div>
+
+			<!-- * soluzione 1 per mostrare le immagini-->
+			<img th:if="${#strings.startsWith(product.image, 'https://') or #strings.startsWith(product.image, 'http://')}" alt="" th:src="${product.image}" th:alt="${product.image}" class="img-show-page my-2 rounded">
+			<img th:if="${not #strings.startsWith(product.image, 'https://') and not #strings.startsWith(product.image, 'http://')}" alt="" th:src="@{/img/__${product.image}__}" th:alt="${product.image}" class="img-show-page my-2 rounded">
+			<!-- * soluzione 2 per mostrare le immagini-->
+			<!-- <img th:src="@{/img/{image}(image=${product.image})}" th:alt="${product.image}" class="my-2 w-50"> -->
+			
+			<h4><span>Price:</span> € [[*{formattedPrice}]]</h4>
+			<!-- oppure -->
+			<!-- <h4><span>Price:</span> € [[${product.formattedPrice}]]</h4> -->
 		</div>
 
-		<!-- * soluzione 1 per mostrare le immagini-->
-		<img th:if="${#strings.startsWith(product.image, 'https://') or #strings.startsWith(product.image, 'http://')}" alt="" th:src="${product.image}" th:alt="${product.image}" class="img-show-page my-2 rounded">
-		<img th:if="${not #strings.startsWith(product.image, 'https://') and not #strings.startsWith(product.image, 'http://')}" alt="" th:src="@{/img/__${product.image}__}" th:alt="${product.image}" class="img-show-page my-2 rounded">
-		<!-- * soluzione 2 per mostrare le immagini-->
-		<!-- <img th:src="@{/img/{image}(image=${product.image})}" th:alt="${product.image}" class="my-2 w-50"> -->
-		
-		<h4><span>Price:</span> € [[*{formattedPrice}]]</h4>
-		<!-- oppure -->
-		<!-- <h4><span>Price:</span> € [[${product.formattedPrice}]]</h4> -->
+		<div class="mx-4">
+			<h2>Reviews:</h2>
+			<div th:each="review : ${reviews}" th:object="${review}">
+
+				<div class="d-flex">
+					<h5 class="me-5"><span>User</span></h5>
+					<p class="date-review">[[*{getFormattedDatePost}]]</p> 
+				</div>
+				<!-- oppure -->
+				<!--/* <p>[[*{formattedDatePost}]]</p> */-->
+				<p class="me-2">[[*{content}]] <span>[[*{rating}]]</span>⭐</p>
+
+			</div>
+		</div>
+
 	</main>
-	
 	<!-- footer -->
 	<th:block th:replace="~{/frags/footer :: footer}"></th:block>
 

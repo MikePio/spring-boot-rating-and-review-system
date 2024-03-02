@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entities.Product;
+import com.example.demo.entities.Review;
 import com.example.demo.services.ProductService;
+import com.example.demo.services.ReviewService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -22,6 +25,9 @@ public class ProductController {
   
   @Autowired
   private ProductService productService;
+  
+  @Autowired
+  private ReviewService reviewService;
 
   // @GetMapping("/") //! http://localhost:8080/products/
   @GetMapping //! http://localhost:8080/products
@@ -40,8 +46,23 @@ public class ProductController {
   @GetMapping("/{id}")
   public String getShow(@PathVariable int id, Model model){
 
-    Product product = productService.findById(id).get();
+    // Product product = productService.findById(id).get();
+    // oppure
+    Product product = productService.findById(id).orElse(null);
+    // Se il prodotto non esiste, reindirizza alla pagina principale dei prodotti
+    if (product == null) {
+      return "redirect:/products";
+    }
+
+    // ottenere le recensioni in base all'id del prodotto
+    List<Review> reviews = reviewService.getReviewsByProductId(id);
+
     model.addAttribute("product", product);
+    model.addAttribute("reviews", reviews);
+
+    // System.out.println("getShow di ProductController");
+    // System.out.println("product: " + product + " " + "reviews: " + reviews);
+    // System.out.println("Fine getShow di ProductController");
 
     return "product-show";
   }

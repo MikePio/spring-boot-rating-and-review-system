@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -71,6 +74,11 @@ public class Review {
 
   public Date getDatePost() {
     return datePost;
+  }
+
+  public String getFormattedDatePost() {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    return formatter.format(this.datePost);
   }
 
   public void setDatePost(Date datePost) {

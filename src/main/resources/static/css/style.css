@@ -85,6 +85,10 @@ main img{
   width: 35%;
 }
 
+.date-review{
+  font-size: 0.8em
+}
+
 @media (max-width: 769px) {
   .img-show-page {
     width: 50% !important;

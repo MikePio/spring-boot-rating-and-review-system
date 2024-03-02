@@ -236,6 +236,13 @@ Mentre, viene rimosso un attributo alla sessione quando il logout è riuscito
     return "redirect:/products"; 
   }
 ```
+### STEP 6
+
+Mostrare nella pagina di dettaglio del prodotto: il prodotto, le recensioni e il nome dell'utente che ha inserito la recensione
+
+- mostrare le recensioni nella pagina di dettaglio del prodotto
+
+- mostrare l'utente che ha inserito la recensione nella pagina di dettaglio del prodotto
 
 ### STEP 7
 
@@ -243,7 +250,9 @@ Aggiungere la funzionalità di creazione delle recensioni nella pagina di dettag
 
 
 
+### FINE PROGETTO
 
+-------------------------------------------
 
 > **!!! ATTENZIONE !!!**
 >
@@ -262,9 +271,11 @@ Aggiungere la funzionalità di creazione delle recensioni nella pagina di dettag
 ##### 12:34 creazione del controller Product
 ##### 14:46 creazione file della view (usando jsp)
 ##### 14:59 stampa degli oggetti nella view (pagina index)
+
 ##### 18:57 creazione del metodo "detail" nel controller
 ##### 19:35 creazione e compilazione della view/pagina di dettaglio per il product
 ##### 22:22 inserimento di css
+
 ##### 23:57 creazione sistema login e registrazione
 ##### 25:12 creazione del controller per l'account con il metodo GET di login
 ##### 26:17 creazione del form per il login
@@ -274,6 +285,7 @@ Aggiungere la funzionalità di creazione delle recensioni nella pagina di dettag
 ##### 33:53 creazione del metodo POST di registrazione nel controller dell'account
 ##### 35:33 aggiunto il metodo findByUsernameAndPassword nella repo dell'account e metodo di login nel service
 ##### 36:28  creazione del metodo POST di login nel controller dell'account
+
 ##### 41:15 creazione del form nella pagina di dettaglio per far inserire la recensione del prodotto all'utente che ha fatto il login
 ##### 46:33 creazione del metodo POST nel controller del prodotto per inviare/creare la review/recensione al db
 ##### 48:55 aggiunto il metodo FindByUsername nella repo dell'account e successivamente al service dell'account 
@@ -282,4 +294,4 @@ Aggiungere la funzionalità di creazione delle recensioni nella pagina di dettag
 ##### 52:38 completato il metodo POST nel controller del prodotto per inviare/creare la review/recensione al db
 ##### 54:38-56:08 mostra in pagina le recensioni inserite cioè quelle presenti nel db  
 ##### 56:35 mostra in pagina le stelle per le recensioni inserite cioè quelle presenti nel db  
-##### FINE😊
+### Fine Recap Recap video😊
